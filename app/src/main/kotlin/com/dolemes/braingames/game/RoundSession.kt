@@ -52,6 +52,12 @@ class RoundSession(
     /** Pontos-base escalados pelo nível (+10% por nível). */
     fun pointsFor(basePoints: Int): Int = engine.pointsFor(basePoints)
 
+    /**
+     * Guarda o maior valor de uma métrica do jogo (ex.: "span"), que vai para o resultado.
+     * Chame antes de [registerTrial], que pode encerrar a rodada.
+     */
+    fun recordMax(key: String, value: Double) = engine.recordMax(key, value)
+
     /** Relógio para tempo de reação, em nanossegundos. É o mesmo relógio de withFrameNanos. */
     fun nowNanos(): Long = System.nanoTime()
 

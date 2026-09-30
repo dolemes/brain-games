@@ -77,6 +77,7 @@ object CorsiRules {
 
     /** Folga entre blocos vizinhos, em dp, além do tamanho do bloco. */
     private const val MARGIN_DP = 8f
+    private const val FIT_TOLERANCE_DP = 0.01f // absorve o arredondamento de "campo / 3 * 3"
     private const val LAYOUT_ATTEMPTS = 60
     private const val POINT_ATTEMPTS = 300
     private const val SEQUENCE_ATTEMPTS = 200
@@ -116,7 +117,7 @@ object CorsiRules {
      */
     fun layout(random: Random, widthDp: Float, heightDp: Float, blockDp: Float): List<BlockCenter> {
         require(blockDp > 0f) { "blockDp deve ser positivo." }
-        require(widthDp >= 3 * blockDp && heightDp >= 3 * blockDp) {
+        require(widthDp + FIT_TOLERANCE_DP >= 3 * blockDp && heightDp + FIT_TOLERANCE_DP >= 3 * blockDp) {
             "O campo (${widthDp} × ${heightDp} dp) não comporta 9 blocos de $blockDp dp."
         }
         val minDistance = blockDp + MARGIN_DP

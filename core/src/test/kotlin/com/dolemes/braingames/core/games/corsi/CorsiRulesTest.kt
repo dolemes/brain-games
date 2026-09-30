@@ -168,6 +168,18 @@ class CorsiRulesTest {
     }
 
     @Test
+    fun blockSizeFor_neverBreaksLayout_withAwkwardFieldSizes() {
+        // Medidas quebradas (dp reais de telas e janelas), onde "campo / 3 * 3" perde no arredondamento.
+        val random = Random(11)
+        repeat(2_000) {
+            val w = 60f + random.nextFloat() * 900f
+            val h = 60f + random.nextFloat() * 900f
+            val size = CorsiRules.blockSizeFor(w, h)
+            assertEquals(CorsiRules.BLOCK_COUNT, CorsiRules.layout(random, w, h, size).size)
+        }
+    }
+
+    @Test
     fun blockSizeFor_keepsTheLayoutIrregular_inPhoneSizedFields() {
         // Bloco na escolha certa: o sorteio livre fecha e quase nunca cai numa grade 3 × 3.
         for ((w, h) in listOf(360f to 480f, 411f to 700f, 320f to 480f)) {

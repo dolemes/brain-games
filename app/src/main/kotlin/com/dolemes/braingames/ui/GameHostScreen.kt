@@ -44,6 +44,7 @@ import com.dolemes.braingames.core.RoundEngine
 import com.dolemes.braingames.core.RoundResult
 import com.dolemes.braingames.game.MiniGame
 import com.dolemes.braingames.game.MiniGameDefinition
+import com.dolemes.braingames.game.ResultMetric
 import com.dolemes.braingames.game.RoundSession
 import kotlin.math.roundToInt
 import kotlin.random.Random
@@ -179,7 +180,12 @@ fun GameHostScreen(
                 }
             }
             Phase.RESULTS -> current?.result?.let { result ->
-                ResultsPanel(result, previousBest, onContinue = { continueAfterResults() })
+                ResultsPanel(
+                    result,
+                    previousBest,
+                    onContinue = { continueAfterResults() },
+                    metrics = definition.resultMetrics,
+                )
             }
         }
     }
@@ -277,6 +283,7 @@ fun ResultsPanel(
     previousBest: Int,
     onContinue: () -> Unit,
     modifier: Modifier = Modifier,
+    metrics: List<ResultMetric> = emptyList(),
 ) {
     Column(
         modifier = modifier.fillMaxSize().padding(24.dp),
@@ -298,6 +305,11 @@ fun ResultsPanel(
             text = stringResource(R.string.results_accuracy, (result.accuracy * 100).roundToInt()),
             style = MaterialTheme.typography.bodyLarge,
         )
+        metrics.forEach { metric ->
+            metric.value(result)?.let { value ->
+                Text(stringResource(metric.labelRes, value), style = MaterialTheme.typography.bodyLarge)
+            }
+        }
         Button(onClick = onContinue, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(top = 12.dp)) {
             Text(stringResource(R.string.results_continue), style = MaterialTheme.typography.titleMedium)
         }

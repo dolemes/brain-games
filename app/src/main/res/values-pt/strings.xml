@@ -57,4 +57,18 @@
     <string name="game_flanker_howto">Toque no lado para onde aponta a seta do MEIO. Ignore as outras setas.</string>
     <string name="flanker_left">Esquerda</string>
     <string name="flanker_right">Direita</string>
+
+    <!-- Jogo: Sequência de Luzes (corsi) -->
+    <string name="game_corsi_name">Sequência de Luzes</string>
+    <string name="game_corsi_howto">Observe os blocos que acendem. Toque neles na mesma ordem.</string>
+    <string name="corsi_watch">Observe…</string>
+    <string name="corsi_your_turn">Sua vez!</string>
+    <string name="corsi_block">Bloco %1$d</string>
+    <string name="corsi_block_lit">Aceso</string>
+    <string name="corsi_span">Maior sequência: %1$d</string>
+
+    <!-- Jogo: Cálculo Relâmpago (quick-math) -->
+    <string name="game_quick_math_name">Cálculo Relâmpago</string>
+    <string name="game_quick_math_howto">Resolva a conta de cabeça. Toque na resposta certa.</string>
+    <string name="quick_math_per_minute">Contas por minuto: %1$d</string>
 </resources>

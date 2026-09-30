@@ -24,7 +24,8 @@ Idiomas: pt-BR e inglês. Converse com o dono do projeto em português do Brasil
    sorteio com o `Random` recebido, verificação de resposta. Testes ao lado, em `core/src/test/...`.
 2. `app/src/main/kotlin/com/dolemes/braingames/games/<id>/<Nome>Game.kt`: `object <Nome>Game : MiniGame`
    com a `MiniGameDefinition` e `Play(session, modifier)`. Estímulo num composable sem estado.
-   Modelo completo: `games/flanker/FlankerGame.kt`.
+   Modelo completo: `games/flanker/FlankerGame.kt`. Número próprio do jogo no resultado (ex.: maior
+   sequência): `session.recordMax(chave, valor)` antes de `registerTrial` + `resultMetrics` na definição.
 3. Registrar em `GameCatalog.all`.
 4. Strings `game_<id>_name`, `game_<id>_howto` (e estímulos textuais) em `values/strings.xml` (en)
    e `values-pt/strings.xml`.
