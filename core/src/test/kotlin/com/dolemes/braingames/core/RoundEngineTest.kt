@@ -98,4 +98,23 @@ class RoundEngineTest {
         assertNull(e.finish(true).medianReactionMs)
         assertNotNull(e.finalStaircase())
     }
+
+    @Test
+    fun recordMax_keepsTheHighestValueAndGoesToTheResult() {
+        val e = engine()
+        e.recordMax("span", 4.0)
+        e.recordMax("span", 6.0)
+        e.recordMax("span", 5.0)
+        assertEquals(mapOf("span" to 6.0), e.finish(true).metrics)
+    }
+
+    @Test
+    fun recordMax_isIgnoredAfterTheRoundEnds_andNoMetricMeansAnEmptyMap() {
+        val e = engine()
+        e.recordMax("span", 3.0)
+        val r = e.finish(true)
+        e.recordMax("span", 9.0)
+        assertEquals(3.0, r.metrics.getValue("span"), 1e-9)
+        assertEquals(emptyMap<String, Double>(), engine().finish(true).metrics)
+    }
 }

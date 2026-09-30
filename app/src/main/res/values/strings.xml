@@ -60,4 +60,18 @@
     <string name="game_flanker_howto">Tap the side the MIDDLE arrow points to. Ignore the other arrows.</string>
     <string name="flanker_left">Left</string>
     <string name="flanker_right">Right</string>
+
+    <!-- Jogo: Sequência de Luzes (corsi) -->
+    <string name="game_corsi_name">Light Sequence</string>
+    <string name="game_corsi_howto">Watch the blocks light up. Tap them in the same order.</string>
+    <string name="corsi_watch">Watch…</string>
+    <string name="corsi_your_turn">Your turn!</string>
+    <string name="corsi_block">Block %1$d</string>
+    <string name="corsi_block_lit">Lit</string>
+    <string name="corsi_span">Longest sequence: %1$d</string>
+
+    <!-- Jogo: Cálculo Relâmpago (quick-math) -->
+    <string name="game_quick_math_name">Lightning Math</string>
+    <string name="game_quick_math_howto">Solve it in your head. Tap the right answer.</string>
+    <string name="quick_math_per_minute">Problems per minute: %1$d</string>
 </resources>

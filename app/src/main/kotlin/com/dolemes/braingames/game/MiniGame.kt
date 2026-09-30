@@ -5,7 +5,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.dolemes.braingames.R
 import com.dolemes.braingames.core.CognitiveDomain
+import com.dolemes.braingames.core.RoundResult
 import com.dolemes.braingames.core.StaircaseSettings
+
+/**
+ * Uma linha extra na tela de resultado: um número próprio do jogo (ex.: a maior sequência).
+ *
+ * @property labelRes texto com um `%1$d` para o número.
+ * @property value tira o número do resultado; null esconde a linha (ex.: nenhuma sequência certa).
+ */
+data class ResultMetric(@StringRes val labelRes: Int, val value: (RoundResult) -> Int?)
 
 /**
  * Ficha de um minijogo. Os valores vêm do one-pager do GDD.
@@ -14,6 +23,7 @@ import com.dolemes.braingames.core.StaircaseSettings
  *   nunca mude depois de publicar.
  * @property supportsUntimedMode false quando o tempo é a própria tarefa (n-back, Go/No-Go).
  * @property untimedTrials no modo sem cronômetro, a rodada termina após este número de respostas.
+ * @property resultMetrics linhas próprias do jogo na tela de resultado, abaixo da precisão.
  */
 data class MiniGameDefinition(
     val id: String,
@@ -24,6 +34,7 @@ data class MiniGameDefinition(
     val supportsUntimedMode: Boolean = true,
     val untimedTrials: Int = 20,
     val staircase: StaircaseSettings = StaircaseSettings(),
+    val resultMetrics: List<ResultMetric> = emptyList(),
 )
 
 /**

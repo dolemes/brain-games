@@ -17,6 +17,8 @@ data class RoundResult(
     val medianReactionMs: Double?,
     /** false quando o jogador saiu no meio da rodada. */
     val completed: Boolean,
+    /** Métricas próprias do jogo (ex.: "span" no Corsi), registradas com [RoundEngine.recordMax]. */
+    val metrics: Map<String, Double> = emptyMap(),
 ) {
     val accuracy: Double get() = if (trials == 0) 0.0 else correct.toDouble() / trials
 }
@@ -42,6 +44,7 @@ class RoundEngine(
     private val reactions = ReactionStats()
     private val startLevel = staircase.level
     private var maxLevelReached = startLevel
+    private val metrics = mutableMapOf<String, Double>()
 
     var elapsedSeconds: Double = 0.0
         private set
@@ -105,6 +108,15 @@ class RoundEngine(
         return change
     }
 
+    /**
+     * Guarda o maior valor visto de uma métrica do jogo (ex.: a maior sequência acertada).
+     * Vai para [RoundResult.metrics]. Depois do fim da rodada, nada mais muda.
+     */
+    fun recordMax(key: String, value: Double) {
+        if (!isRunning) return
+        metrics[key] = maxOf(metrics[key] ?: value, value)
+    }
+
     /** Pontos-base escalados pelo nível atual (+10% por nível acima do mínimo). */
     fun pointsFor(basePoints: Int): Int =
         (basePoints * (1.0 + 0.1 * (staircase.level - staircase.minLevel))).roundToInt()
@@ -124,6 +136,7 @@ class RoundEngine(
             durationSeconds = elapsedSeconds,
             medianReactionMs = reactions.median(),
             completed = completed,
+            metrics = metrics.toMap(),
         )
         result = r
         return r
