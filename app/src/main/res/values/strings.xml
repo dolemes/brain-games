@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Inglês: idioma de reserva para quem não usa português. Português em values-pt/. -->
+<resources>
+    <string name="app_name">Brain Games</string>
+
+    <!-- Home -->
+    <string name="home_workout_title">Today\'s workout</string>
+    <string name="home_workout_done">Workout complete! Come back tomorrow.</string>
+    <plurals name="home_streak">
+        <item quantity="one">%d day in a row</item>
+        <item quantity="other">%d days in a row</item>
+    </plurals>
+    <string name="home_all_games">All games</string>
+    <string name="home_play">Play</string>
+    <string name="home_done">Done</string>
+    <string name="settings">Settings</string>
+
+    <!-- Domínios -->
+    <string name="domain_memory">Memory</string>
+    <string name="domain_reasoning">Logic &amp; reasoning</string>
+    <string name="domain_attention">Attention &amp; speed</string>
+    <string name="domain_math_language">Math &amp; language</string>
+
+    <!-- Rodada -->
+    <string name="game_start">Start</string>
+    <string name="game_back">Back</string>
+    <string name="game_pause">Pause</string>
+    <string name="game_paused_title">Paused</string>
+    <string name="game_resume">Keep playing</string>
+    <string name="game_quit">Quit round</string>
+    <string name="game_time_left">Time: %1$d s</string>
+    <string name="game_trials_left">Left: %1$d</string>
+    <string name="game_score">Points: %1$d</string>
+    <string name="feedback_correct">Correct</string>
+    <string name="feedback_wrong">Wrong</string>
+
+    <!-- Resultado -->
+    <string name="results_title">Round complete</string>
+    <string name="results_score">Points: %1$d</string>
+    <string name="results_best">Best: %1$d</string>
+    <string name="results_level">Level reached: %1$d</string>
+    <string name="results_accuracy">Accuracy: %1$d%%</string>
+    <string name="results_new_record">New record!</string>
+    <string name="results_continue">Continue</string>
+
+    <!-- Configurações -->
+    <string name="settings_language">Language</string>
+    <string name="settings_language_system">Same as the phone</string>
+    <string name="settings_language_pt" translatable="false">Português</string>
+    <string name="settings_language_en" translatable="false">English</string>
+    <string name="settings_untimed">No timer</string>
+    <string name="settings_untimed_desc">Rounds end after a number of answers instead of a time limit (when the game allows it).</string>
+    <string name="settings_text_size">Text size</string>
+    <string name="settings_privacy_options">Ad privacy options</string>
+    <string name="settings_privacy_policy">Privacy policy</string>
+    <string name="settings_disclaimer">These games are a fun mental challenge. They are not a treatment or a medical device.</string>
+
+    <!-- Jogo: Setas no Meio (flanker) -->
+    <string name="game_flanker_name">Middle Arrow</string>
+    <string name="game_flanker_howto">Tap the side the MIDDLE arrow points to. Ignore the other arrows.</string>
+    <string name="flanker_left">Left</string>
+    <string name="flanker_right">Right</string>
+</resources>

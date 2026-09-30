@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Brain Games</string>
+
+    <!-- Home -->
+    <string name="home_workout_title">Treino de hoje</string>
+    <string name="home_workout_done">Treino concluído! Volte amanhã.</string>
+    <plurals name="home_streak">
+        <item quantity="one">%d dia seguido</item>
+        <item quantity="other">%d dias seguidos</item>
+    </plurals>
+    <string name="home_all_games">Todos os jogos</string>
+    <string name="home_play">Jogar</string>
+    <string name="home_done">Feito</string>
+    <string name="settings">Configurações</string>
+
+    <!-- Domínios -->
+    <string name="domain_memory">Memória</string>
+    <string name="domain_reasoning">Lógica e raciocínio</string>
+    <string name="domain_attention">Atenção e velocidade</string>
+    <string name="domain_math_language">Cálculo e linguagem</string>
+
+    <!-- Rodada -->
+    <string name="game_start">Começar</string>
+    <string name="game_back">Voltar</string>
+    <string name="game_pause">Pausar</string>
+    <string name="game_paused_title">Pausado</string>
+    <string name="game_resume">Continuar jogando</string>
+    <string name="game_quit">Sair da rodada</string>
+    <string name="game_time_left">Tempo: %1$d s</string>
+    <string name="game_trials_left">Faltam: %1$d</string>
+    <string name="game_score">Pontos: %1$d</string>
+    <string name="feedback_correct">Certo</string>
+    <string name="feedback_wrong">Errado</string>
+
+    <!-- Resultado -->
+    <string name="results_title">Rodada concluída</string>
+    <string name="results_score">Pontos: %1$d</string>
+    <string name="results_best">Recorde: %1$d</string>
+    <string name="results_level">Nível alcançado: %1$d</string>
+    <string name="results_accuracy">Acertos: %1$d%%</string>
+    <string name="results_new_record">Novo recorde!</string>
+    <string name="results_continue">Continuar</string>
+
+    <!-- Configurações -->
+    <string name="settings_language">Idioma</string>
+    <string name="settings_language_system">Igual ao celular</string>
+    <string name="settings_untimed">Sem cronômetro</string>
+    <string name="settings_untimed_desc">A rodada termina depois de um número de respostas, sem limite de tempo (quando o jogo permite).</string>
+    <string name="settings_text_size">Tamanho do texto</string>
+    <string name="settings_privacy_options">Privacidade dos anúncios</string>
+    <string name="settings_privacy_policy">Política de privacidade</string>
+    <string name="settings_disclaimer">Estes jogos são um desafio mental divertido. Não são tratamento nem dispositivo médico.</string>
+
+    <!-- Jogo: Setas no Meio (flanker) -->
+    <string name="game_flanker_name">Setas no Meio</string>
+    <string name="game_flanker_howto">Toque no lado para onde aponta a seta do MEIO. Ignore as outras setas.</string>
+    <string name="flanker_left">Esquerda</string>
+    <string name="flanker_right">Direita</string>
+</resources>
