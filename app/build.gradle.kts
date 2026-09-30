@@ -18,7 +18,9 @@ val keystorePath = env("KEYSTORE_FILE")
 android {
     // O applicationId é DEFINITIVO depois do primeiro envio ao Google Play.
     namespace = "com.dolemes.braingames"
-    compileSdk = 36
+    // As bibliotecas atuais (Compose 1.12, core 1.19, lifecycle 2.11) exigem compileSdk 37 ou mais.
+    // Isso só libera APIs novas na compilação; o comportamento em execução segue o targetSdk (36).
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.dolemes.braingames"

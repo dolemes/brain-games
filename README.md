@@ -60,4 +60,4 @@ Conta pessoal da Play criada depois de 13/11/2023: o primeiro lançamento exige 
 
 Conferidas em setembro de 2026 (`gradle/libs.versions.toml`): Android Gradle Plugin 9.4.0,
 Gradle 9.6.0, Kotlin 2.4.20, Compose BOM 2026.09.00, Google Mobile Ads Next-Gen SDK 1.5.0,
-target API 36 (Android 16), minSdk 26.
+target API 36 (Android 16), compileSdk 37 (exigido pelas bibliotecas), minSdk 26.
