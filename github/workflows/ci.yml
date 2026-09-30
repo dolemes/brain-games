@@ -1,0 +1,57 @@
+name: CI
+
+# A cada envio: testa a lógica, compila o APK de teste e gera as capturas de tela.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v6
+
+      - name: Testes da lógica (módulo core)
+        run: ./gradlew :core:test
+
+      - name: Testes do app e APK de teste
+        run: ./gradlew :app:testDebugUnitTest :app:assembleDebug
+
+      - name: Capturas de tela
+        run: ./gradlew :app:recordRoborazziDebug
+        continue-on-error: true
+
+      - name: Publicar APK de teste
+        uses: actions/upload-artifact@v7
+        with:
+          name: apk-debug
+          path: app/build/outputs/apk/debug/*.apk
+
+      - name: Publicar capturas de tela
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: capturas-de-tela
+          path: app/build/outputs/roborazzi/
+          if-no-files-found: ignore
+
+      - name: Publicar relatórios de teste
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: relatorios-de-teste
+          path: '**/build/reports/tests/'

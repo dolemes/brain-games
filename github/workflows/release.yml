@@ -1,0 +1,74 @@
+name: Release
+
+# Criar uma tag v1.2.3 gera o AAB assinado e (se configurado) envia ao teste fechado da Play.
+#
+# Segredos do repositório (Settings › Secrets and variables › Actions):
+#   KEYSTORE_BASE64    keystore de upload em base64
+#   KEYSTORE_PASSWORD  senha do keystore
+#   KEY_ALIAS          alias da chave (ex.: upload)
+#   KEY_PASSWORD       senha da chave
+#   PLAY_SERVICE_ACCOUNT_JSON  (opcional) conta de serviço com acesso ao app no Play Console
+# Variável do repositório:
+#   PLAY_UPLOAD = true  para enviar automaticamente (só depois do 1º envio manual no Console)
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v6
+
+      - name: Recusar IDs de anúncio de teste
+        run: |
+          if grep -q "3940256099942544" gradle.properties; then
+            echo "::error::gradle.properties ainda tem os IDs de TESTE do AdMob. Troque pelos seus antes de publicar."
+            exit 1
+          fi
+
+      - name: Restaurar keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ]; then echo "::error::Segredo KEYSTORE_BASE64 ausente."; exit 1; fi
+          echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+
+      - name: Versão a partir da tag
+        run: |
+          echo "VERSION_NAME=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+          # versionCode precisa sempre subir: usa o número da execução + margem.
+          echo "VERSION_CODE=$((1000 + GITHUB_RUN_NUMBER))" >> "$GITHUB_ENV"
+
+      - name: Testes e AAB assinado
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/upload.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: ./gradlew :core:test :app:testDebugUnitTest :app:bundleRelease
+
+      - name: Publicar AAB como artefato
+        uses: actions/upload-artifact@v7
+        with:
+          name: app-release-aab
+          path: app/build/outputs/bundle/release/app-release.aab
+
+      # Envia como RASCUNHO para o teste fechado; você revisa e publica no Play Console.
+      - name: Enviar ao teste fechado (Google Play)
+        if: ${{ vars.PLAY_UPLOAD == 'true' }}
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.dolemes.braingames
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
+          tracks: alpha
+          status: draft
