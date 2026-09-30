@@ -29,6 +29,8 @@ class RoundSession(
         private set
     var trials by mutableIntStateOf(engine.trials)
         private set
+    // O setter do estado se chamaria setPaused(Boolean) na JVM, igual à função pública abaixo.
+    @set:JvmName("updatePausedState")
     var isPaused by mutableStateOf(engine.isPaused)
         private set
     /** Segundos restantes (arredondados para cima): muda uma vez por segundo, não a cada quadro. */
